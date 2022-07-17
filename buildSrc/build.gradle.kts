@@ -9,6 +9,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:7.2.1")
+    implementation("com.google.dagger:hilt-android-gradle-plugin:_")
+    implementation("com.android.tools.build:gradle:_")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
 }

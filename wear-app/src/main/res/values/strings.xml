@@ -5,4 +5,15 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">From the Square world,\nHello, %1$s!</string>
+    <string name="preview_channels">Channels</string>
+    <string name="preview_channel1">Channel 1</string>
+    <string name="preview_channel2">Channel 2</string>
+    <string name="tile_playlists_chip">Playlists</string>
+    <string name="complication_favourites">Favourites</string>
+    <string name="favourite_content_description">Favourite</string>
+    <string name="toggle_chip_on">On</string>
+    <string name="toggle_chip_off">Off</string>
+    <string name="logout">Logout</string>
+    <string name="show_info_setting">Show TimeText Info</string>
+    <string name="animated_setting">Animated</string>
 </resources>

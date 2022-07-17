@@ -1,12 +1,9 @@
 import de.fayard.refreshVersions.core.versionFor
-import org.gradle.api.JavaVersion
-import org.gradle.kotlin.dsl.implementation
-import org.gradle.kotlin.dsl.kotlin
-import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
     kotlin("android")
+    kotlin("kapt")
     id("com.android.application")
 }
 
@@ -31,7 +28,7 @@ android {
 }
 
 tasks.withType<KotlinJvmCompile>().configureEach {
-    kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+    kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     kotlinOptions.jvmTarget = "1.8"
 }
 
