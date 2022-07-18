@@ -47,8 +47,6 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEa
     }
 }
 
-setVersionsForApp(AppKind.Wear)
-
 dependencies {
     implementation(AndroidX.wear.compose.material)
     implementation(AndroidX.wear.compose.navigation)
