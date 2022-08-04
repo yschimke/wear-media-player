@@ -10,7 +10,7 @@
         </ChosenSlot>
       </list>
     </option>
-    <option name="componentName" value="ee.schimke.wmp.complication.MediaStatusComplicationService" />
+    <option name="componentName" value="ee.schimke.wmp.surfaces.MediaStatusComplicationService" />
     <option name="installFlags" value="" />
     <option name="projectPathOnTarget" />
     <option name="selectedOptions">

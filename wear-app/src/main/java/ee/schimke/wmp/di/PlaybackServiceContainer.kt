@@ -63,15 +63,15 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ServiceScoped
-import ee.schimke.wmp.config.AppConfig
 import ee.schimke.wmp.media3.BasicMediaLibrarySessionCallback
 import ee.schimke.wmp.media3.CoilBitmapLoader
-import ee.schimke.wmp.service.DataUpdates
+import ee.schimke.wmp.surfaces.DataUpdates
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import javax.inject.Provider
 
 @Module
 @InstallIn(ServiceComponent::class)
@@ -176,13 +176,11 @@ object PlaybackServiceContainer {
     @Provides
     fun exoPlayer(
         service: Service,
-        appConfig: AppConfig,
         loadControl: LoadControl,
         audioOnlyRenderersFactory: RenderersFactory,
         analyticsCollector: AnalyticsCollector,
         mediaSourceFactory: MediaSource.Factory,
         dataUpdates: DataUpdates,
-        audioOffloadManager: AudioOffloadManager
     ) =
         ExoPlayer.Builder(service, audioOnlyRenderersFactory)
             .setAnalyticsCollector(analyticsCollector)
@@ -197,10 +195,6 @@ object PlaybackServiceContainer {
                 addListener(analyticsCollector)
 
                 addListener(dataUpdates.listener)
-
-                if (appConfig.offloadEnabled) {
-                    audioOffloadManager.connect(this)
-                }
             }
 
     @ServiceScoped
@@ -225,7 +219,9 @@ object PlaybackServiceContainer {
         systemAudioRepository: SystemAudioRepository,
         audioOutputSelector: AudioOutputSelector,
         playbackRules: PlaybackRules,
-        logger: ErrorReporter
+        logger: ErrorReporter,
+        appConfig: AppConfig,
+        audioOffloadManager: Provider<AudioOffloadManager>
     ): Player =
         WearConfiguredPlayer(
             player = exoPlayer,
@@ -237,6 +233,12 @@ object PlaybackServiceContainer {
         ).also {
             serviceCoroutineScope.launch {
                 it.startNoiseDetection()
+            }
+
+            if (appConfig.offloadEnabled) {
+                serviceCoroutineScope.launch {
+                    audioOffloadManager.get().connect(exoPlayer)
+                }
             }
         }
 

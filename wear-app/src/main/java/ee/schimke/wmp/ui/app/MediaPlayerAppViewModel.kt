@@ -18,16 +18,16 @@ package ee.schimke.wmp.ui.app
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.status.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ee.schimke.wmp.config.AppConfig
-import ee.schimke.wmp.settings.Settings
-import ee.schimke.wmp.settings.SettingsRepository
+import ee.schimke.wmp.di.AppConfig
+import ee.schimke.wmp.data.settings.Settings
+import ee.schimke.wmp.data.settings.SettingsRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -72,10 +72,10 @@ class MediaPlayerAppViewModel @Inject constructor(
     }
 
     suspend fun loadItems() {
-        if (playerRepository.currentMediaItem.value == null) {
+        if (playerRepository.currentMedia.value == null) {
             try {
                 val mediaItems = listOf(
-                    MediaItem(
+                    Media(
                         id = "1",
                         uri = "https://npr-ice.streamguys1.com/live.mp3",
                         title = "NPR 24 Hour Program Stream",
@@ -84,7 +84,7 @@ class MediaPlayerAppViewModel @Inject constructor(
                     )
                 )
 
-                playerRepository.setMediaItems(mediaItems)
+                playerRepository.setMediaList(mediaItems)
                 playerRepository.prepare()
             } catch (ioe: IOException) {
                 // Nothing
@@ -95,7 +95,7 @@ class MediaPlayerAppViewModel @Inject constructor(
     suspend fun startupSetup() {
         waitForConnection()
 
-        val currentMediaItem = playerRepository.currentMediaItem.value
+        val currentMediaItem = playerRepository.currentMedia.value
 
         if (currentMediaItem == null) {
             loadItems()
@@ -104,7 +104,7 @@ class MediaPlayerAppViewModel @Inject constructor(
 
     suspend fun playItems(mediaId: String?, collectionId: String) {
         // TODO
-        val mediaItems = listOf<MediaItem>().filter {
+        val mediaItems = listOf<Media>().filter {
             it.artist == collectionId
         }
 
@@ -112,9 +112,10 @@ class MediaPlayerAppViewModel @Inject constructor(
 
         waitForConnection()
 
-        playerRepository.setMediaItems(mediaItems)
+        playerRepository.setMediaList(mediaItems)
+        playerRepository.seekToDefaultPosition(index)
         playerRepository.prepare()
-        playerRepository.play(mediaItemIndex = index)
+        playerRepository.play()
     }
 
     private suspend fun waitForConnection() {

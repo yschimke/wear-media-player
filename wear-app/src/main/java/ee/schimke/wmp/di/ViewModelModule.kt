@@ -14,12 +14,22 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistMediaDataApi::class)
+
 package ee.schimke.wmp.di
 
 import android.content.ComponentName
 import android.content.Context
+import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
-import com.google.android.horologist.media.data.PlayerRepositoryImpl
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.mapper.MediaExtrasMapper
+import com.google.android.horologist.media.data.mapper.MediaExtrasMapperNoopImpl
+import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapper
+import com.google.android.horologist.media.data.mapper.MediaItemExtrasMapperNoopImpl
+import com.google.android.horologist.media.data.mapper.MediaItemMapper
+import com.google.android.horologist.media.data.mapper.MediaMapper
+import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media3.flows.buildSuspend
 import dagger.Module
@@ -29,7 +39,7 @@ import dagger.hilt.android.ActivityRetainedLifecycle
 import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityRetainedScoped
-import ee.schimke.wmp.service.PlaybackService
+import ee.schimke.wmp.components.PlaybackService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -78,11 +88,16 @@ object ViewModelModule {
     @Provides
     @ActivityRetainedScoped
     fun playerRepositoryImpl(
+        mediaMapper: MediaMapper,
+        mediaItemMapper: MediaItemMapper,
         activityRetainedLifecycle: ActivityRetainedLifecycle,
         coroutineScope: CoroutineScope,
-        mediaController: Deferred<androidx.media3.session.MediaBrowser>
+        mediaController: Deferred<MediaBrowser>
     ): PlayerRepositoryImpl =
-        PlayerRepositoryImpl().also { playerRepository ->
+        PlayerRepositoryImpl(
+            mediaMapper = mediaMapper,
+            mediaItemMapper = mediaItemMapper,
+        ).also { playerRepository ->
             coroutineScope.launch(Dispatchers.Main) {
                 val player = mediaController.await()
                 playerRepository.connect(
@@ -101,4 +116,20 @@ object ViewModelModule {
     fun playerRepository(
         playerRepositoryImpl: PlayerRepositoryImpl
     ): PlayerRepository = playerRepositoryImpl
+
+    @Provides
+    fun mediaExtrasMapper(): MediaExtrasMapper = MediaExtrasMapperNoopImpl
+
+    @Provides
+    fun mediaItemExtrasMapper(): MediaItemExtrasMapper = MediaItemExtrasMapperNoopImpl
+
+    @Provides
+    @ActivityRetainedScoped
+    fun mediaMapper(mediaExtrasMapper: MediaExtrasMapper): MediaMapper =
+        MediaMapper(mediaExtrasMapper)
+
+    @Provides
+    @ActivityRetainedScoped
+    fun mediaItemMapper(mediaItemExtrasMapper: MediaItemExtrasMapper): MediaItemMapper =
+        MediaItemMapper(mediaItemExtrasMapper)
 }

@@ -23,16 +23,12 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.google.android.horologist.audio.SystemAudioRepository
-import com.google.android.horologist.media3.audio.AudioOutputSelector
-import com.google.android.horologist.media3.audio.BluetoothSettingsOutputSelector
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ee.schimke.wmp.config.AppConfig
-import ee.schimke.wmp.settings.SettingsRepository
+import ee.schimke.wmp.data.settings.SettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import java.io.File
 import javax.inject.Singleton

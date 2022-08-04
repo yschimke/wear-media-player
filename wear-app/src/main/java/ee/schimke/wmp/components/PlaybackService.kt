@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ee.schimke.wmp.service
+package ee.schimke.wmp.components
 
 import androidx.media3.session.MediaNotification
 import androidx.media3.session.MediaSession

@@ -38,9 +38,8 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreen
 import com.google.android.horologist.media.ui.screens.browse.BrowseScreenState
-import ee.schimke.wmp.activity.MediaActivity
-import ee.schimke.wmp.theme.WearMediaPlayerTheme
-import ee.schimke.wmp.ui.debug.MediaInfoTimeText
+import ee.schimke.wmp.components.MediaActivity
+import ee.schimke.wmp.ui.theme.WearMediaPlayerTheme
 import ee.schimke.wmp.ui.player.MediaPlayerScreen
 import ee.schimke.wmp.ui.settings.SettingsScreen
 
@@ -55,16 +54,7 @@ fun MediaWearApp(
     val volumeViewModel: VolumeViewModel = hiltViewModel()
 
     val timeText: @Composable (Modifier) -> Unit = { modifier ->
-        val networkStatus by rememberStateWithLifecycle(appViewModel.networkStatus)
-
-        if (settingsState?.showTimeTextInfo == true) {
-            MediaInfoTimeText(
-                modifier = modifier,
-                networkStatus = networkStatus,
-            )
-        } else {
-            TimeText(modifier = modifier)
-        }
+        TimeText(modifier = modifier)
     }
 
     WearMediaPlayerTheme {
@@ -91,7 +81,7 @@ fun MediaWearApp(
                     scalingLazyListState = scalingLazyListState,
                 )
             },
-            categoryEntityScreen = { _, _ ->
+            categoryEntityScreen = { _, _, _, _ ->
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text("Category XXX")
                 }

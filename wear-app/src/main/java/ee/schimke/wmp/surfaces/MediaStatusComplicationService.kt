@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ee.schimke.wmp.complication
+package ee.schimke.wmp.surfaces
 
 import android.graphics.drawable.Icon
 import androidx.media3.common.MediaItem
@@ -30,7 +30,6 @@ import com.google.android.horologist.tiles.complication.DataComplicationService
 import com.google.android.horologist.tiles.images.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 import ee.schimke.wmp.R
-import ee.schimke.wmp.service.DataUpdates
 import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
