@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ee.schimke.wmp.activity
+package ee.schimke.wmp.components
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -27,7 +27,6 @@ import ee.schimke.wmp.ui.app.MediaWearApp
 @AndroidEntryPoint
 class MediaActivity : ComponentActivity() {
     lateinit var navController: NavHostController
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

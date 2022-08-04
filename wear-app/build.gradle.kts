@@ -27,7 +27,6 @@ android {
 }
 
 val experimentalAnnotations = """
-    androidx.media3.common.util.UnstableApi
     com.google.android.horologist.audio.ExperimentalHorologistAudioApi
     com.google.android.horologist.audio.ui.ExperimentalHorologistAudioUiApi
     com.google.android.horologist.composables.ExperimentalHorologistComposablesApi
@@ -39,6 +38,7 @@ val experimentalAnnotations = """
     com.google.android.horologist.tiles.ExperimentalHorologistTilesApi
     kotlinx.coroutines.ExperimentalCoroutinesApi
     com.google.accompanist.pager.ExperimentalPagerApi
+    com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
 """.trimIndent().split("\n")
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {

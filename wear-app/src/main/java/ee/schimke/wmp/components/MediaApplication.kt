@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ee.schimke.wmp.application
+package ee.schimke.wmp.components
 
 import android.app.Application
 import android.os.StrictMode

@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalHorologistMediaDataApi::class)
+
 package ee.schimke.wmp.ui.player
 
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media.data.PlayerRepositoryImpl
+import com.google.android.horologist.media.data.ExperimentalHorologistMediaDataApi
+import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import com.google.android.horologist.media3.audio.AudioOutputSelector
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -29,7 +31,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MediaPlayerScreenViewModel @Inject constructor(
     playerRepository: PlayerRepositoryImpl,
-    private val audioOutputSelector: AudioOutputSelector
 ) : PlayerViewModel(playerRepository) {
     init {
         viewModelScope.launch {

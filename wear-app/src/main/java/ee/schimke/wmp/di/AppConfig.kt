@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package ee.schimke.wmp.config
+package ee.schimke.wmp.di
 
+import android.os.Build
 import androidx.media3.exoplayer.audio.DefaultAudioSink
 import com.google.android.horologist.media3.rules.PlaybackRules
 import com.google.android.horologist.networks.rules.NetworkingRules
 import ee.schimke.wmp.BuildConfig
 
 data class AppConfig(
-    val offloadEnabled: Boolean = true,
-    val strictNetworking: NetworkingRules? = NetworkingRules.Conservative,
+    val offloadEnabled: Boolean = Build.VERSION.SDK_INT >= 30,
+    val strictNetworking: NetworkingRules? = NetworkingRules.Lenient,
     val deeplinkUriPrefix: String = "ymp${if (BuildConfig.DEBUG) "-debug" else ""}://ymp",
     val cacheItems: Boolean = true,
     val cacheWriteBack: Boolean = true,

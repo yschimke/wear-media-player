@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ee.schimke.wmp.tile
+package ee.schimke.wmp.surfaces
 
 import android.graphics.BitmapFactory
 import androidx.compose.runtime.Composable
@@ -30,7 +30,7 @@ import coil.ImageLoader
 import com.google.android.horologist.compose.tools.TileLayoutPreview
 import com.google.android.horologist.compose.tools.WearPreviewDevices
 import com.google.android.horologist.compose.tools.WearPreviewFontSizes
-import com.google.android.horologist.media.model.MediaItem
+import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.media.ui.tiles.toTileColors
 import com.google.android.horologist.tiles.CoroutinesTileService
@@ -40,8 +40,8 @@ import com.google.android.horologist.tiles.images.toImageResource
 import dagger.hilt.android.AndroidEntryPoint
 import ee.schimke.wmp.BuildConfig
 import ee.schimke.wmp.R
-import ee.schimke.wmp.activity.MediaActivity
-import ee.schimke.wmp.theme.wearColorPalette
+import ee.schimke.wmp.components.MediaActivity
+import ee.schimke.wmp.ui.theme.wearColorPalette
 import javax.inject.Inject
 
 /**
@@ -90,17 +90,17 @@ class MediaCollectionsTileService : CoroutinesTileService() {
         )
     }
 
-    suspend fun loadItems(): Pair<MediaItem, MediaItem> {
+    suspend fun loadItems(): Pair<Media, Media> {
         // TODO update
 
-        val first = MediaItem(
+        val first = Media(
             "1",
             "https://example.org/nothing",
             "Title 1",
             "Artist 1",
         )
 
-        val second = MediaItem(
+        val second = Media(
             "1",
             "https://example.org/nothing",
             "Title 1",

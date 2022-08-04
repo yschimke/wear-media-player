@@ -35,7 +35,7 @@ import com.google.android.horologist.media.ui.screens.DefaultPlayerScreenMediaDi
 import com.google.android.horologist.media.ui.screens.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.PlayerViewModel
-import ee.schimke.wmp.settings.Settings
+import ee.schimke.wmp.data.settings.Settings
 import ee.schimke.wmp.ui.components.AnimatedPlayerScreenMediaDisplay
 
 @Composable
@@ -81,9 +81,9 @@ fun MediaPlayerScreen(
                             onPauseButtonClick = { mediaPlayerScreenViewModel.pause() },
                             playPauseButtonEnabled = it.playPauseEnabled,
                             playing = it.playing,
-                            onSeekToPreviousButtonClick = { mediaPlayerScreenViewModel.skipToPreviousMediaItem() },
+                            onSeekToPreviousButtonClick = { mediaPlayerScreenViewModel.skipToPreviousMedia() },
                             seekToPreviousButtonEnabled = it.seekToPreviousEnabled,
-                            onSeekToNextButtonClick = { mediaPlayerScreenViewModel.skipToNextMediaItem() },
+                            onSeekToNextButtonClick = { mediaPlayerScreenViewModel.skipToNextMedia() },
                             seekToNextButtonEnabled = it.seekToNextEnabled,
                             percent = it.trackPosition?.percent ?: 0f,
                         )
@@ -92,7 +92,7 @@ fun MediaPlayerScreen(
                     }
             },
             background = {
-                val artworkUri = it.mediaItem?.artworkUri
+                val artworkUri = it.media?.artworkUri
                 ArtworkColorBackground(
                     artworkUri = artworkUri,
                     defaultColor = MaterialTheme.colors.primary

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ee.schimke.wmp.system
+package ee.schimke.wmp.di
 
 import android.content.res.Resources
 import android.util.Log

@@ -13,7 +13,7 @@
     <uses-feature android:name="android.hardware.type.watch" />
 
     <application
-        android:name=".application.MediaApplication"
+        android:name=".components.MediaApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -30,7 +30,7 @@
             android:value="true" />
 
         <activity
-            android:name="ee.schimke.wmp.activity.MediaActivity"
+            android:name="ee.schimke.wmp.components.MediaActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/SplashTheme"
@@ -53,7 +53,7 @@
         </activity>
 
         <service
-            android:name="ee.schimke.wmp.service.PlaybackService"
+            android:name="ee.schimke.wmp.components.PlaybackService"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback"
             >
@@ -69,7 +69,7 @@
         </service>
 
         <service
-            android:name="ee.schimke.wmp.complication.MediaStatusComplicationService"
+            android:name="ee.schimke.wmp.surfaces.MediaStatusComplicationService"
             android:exported="true"
             android:icon="@drawable/ic_uamp"
             android:label="@string/app_name"

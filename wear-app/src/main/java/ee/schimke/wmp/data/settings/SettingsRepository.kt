@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ee.schimke.wmp.settings
+package ee.schimke.wmp.data.settings
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.MutablePreferences

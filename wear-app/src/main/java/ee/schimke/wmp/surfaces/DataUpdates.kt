@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ee.schimke.wmp.service
+package ee.schimke.wmp.surfaces
 
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player

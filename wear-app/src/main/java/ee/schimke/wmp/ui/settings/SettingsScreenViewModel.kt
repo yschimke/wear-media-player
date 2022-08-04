@@ -21,7 +21,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ee.schimke.wmp.settings.SettingsRepository
+import ee.schimke.wmp.data.settings.SettingsRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map

@@ -40,7 +40,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ee.schimke.wmp.BuildConfig
-import ee.schimke.wmp.config.AppConfig
 import kotlinx.coroutines.CoroutineScope
 import okhttp3.Cache
 import okhttp3.Call

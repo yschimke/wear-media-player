@@ -19,10 +19,6 @@ package ee.schimke.wmp.di
 import android.content.ComponentName
 import android.content.Context
 import android.os.Vibrator
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.media3.database.DatabaseProvider
 import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.cache.Cache
@@ -46,10 +42,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ee.schimke.wmp.complication.MediaStatusComplicationService
-import ee.schimke.wmp.config.AppConfig
-import ee.schimke.wmp.service.DataUpdates
-import ee.schimke.wmp.system.Logging
+import ee.schimke.wmp.surfaces.MediaStatusComplicationService
+import ee.schimke.wmp.surfaces.DataUpdates
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

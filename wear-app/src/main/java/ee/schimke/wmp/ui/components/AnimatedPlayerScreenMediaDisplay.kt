@@ -34,7 +34,7 @@ public fun AnimatedPlayerScreenMediaDisplay(
     playerUiState: PlayerUiState,
     modifier: Modifier = Modifier,
 ) {
-    val mediaItem = playerUiState.mediaItem
+    val mediaItem = playerUiState.media
     if (!playerUiState.connected) {
         LoadingMediaDisplay(modifier)
     } else if (mediaItem != null) {
