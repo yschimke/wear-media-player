@@ -25,6 +25,7 @@ import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.status.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ee.schimke.wmp.data.podcasts.AndroidPodcastRepository
 import ee.schimke.wmp.di.AppConfig
 import ee.schimke.wmp.data.settings.Settings
 import ee.schimke.wmp.data.settings.SettingsRepository
@@ -45,6 +46,7 @@ class MediaPlayerAppViewModel @Inject constructor(
     dataRequestRepository: DataRequestRepository,
     private val settingsRepository: SettingsRepository,
     private val playerRepository: PlayerRepository,
+    private val podcastRepository: AndroidPodcastRepository,
     private val appConfig: AppConfig,
 ) : ViewModel() {
     val networkStatus: StateFlow<Networks> = networkRepository.networkStatus
@@ -74,15 +76,7 @@ class MediaPlayerAppViewModel @Inject constructor(
     suspend fun loadItems() {
         if (playerRepository.currentMedia.value == null) {
             try {
-                val mediaItems = listOf(
-                    Media(
-                        id = "1",
-                        uri = "https://npr-ice.streamguys1.com/live.mp3",
-                        title = "NPR 24 Hour Program Stream",
-                        artist = "NPR",
-                        artworkUri = "http://images.radio.orange.com/radios/large_npr_national_public_radio.png"
-                    )
-                )
+                val mediaItems = podcastRepository.query()
 
                 playerRepository.setMediaList(mediaItems)
                 playerRepository.prepare()
