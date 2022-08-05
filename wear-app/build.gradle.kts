@@ -71,6 +71,9 @@ dependencies {
     implementation(AndroidX.hilt.navigationCompose)
     implementation(KotlinX.coroutines.guava)
 
+    implementation("com.prof18.rssparser:rssparser:4.0.2")
+    implementation("com.squareup.okhttp3:okhttp-coroutines:5.0.0-alpha.10")
+
     implementation("com.google.android.horologist:horologist-media:_")
     implementation("com.google.android.horologist:horologist-media-ui:_")
     implementation("com.google.android.horologist:horologist-media-data:_")

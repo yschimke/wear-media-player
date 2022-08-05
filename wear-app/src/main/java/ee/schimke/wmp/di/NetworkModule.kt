@@ -33,6 +33,7 @@ import com.google.android.horologist.networks.rules.NetworkingRules
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.HighBandwidthRequester
 import com.google.android.horologist.networks.status.NetworkRepository
+import com.prof.rssparser.Parser
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -40,6 +41,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ee.schimke.wmp.BuildConfig
+import ee.schimke.wmp.data.podcasts.AndroidPodcastRepository
 import kotlinx.coroutines.CoroutineScope
 import okhttp3.Cache
 import okhttp3.Call
@@ -49,6 +51,7 @@ import okhttp3.logging.LoggingEventListener
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
+import java.nio.charset.StandardCharsets
 import javax.inject.Singleton
 
 @Module
@@ -185,4 +188,19 @@ object NetworkModule {
                 logger(DebugLogger())
             }
         }.build()
+
+    @Singleton
+    @Provides
+    fun podcastRepository(
+        @ApplicationContext application: Context,
+        callFactory: Call.Factory
+    ): AndroidPodcastRepository {
+        val parser = Parser.Builder()
+            .context(application)
+            .charset(StandardCharsets.UTF_8)
+            .cacheExpirationMillis(1L * 60L * 60L * 1000L) // one hour
+            .build()
+
+        return AndroidPodcastRepository(callFactory, parser)
+    }
 }
